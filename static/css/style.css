@@ -1,0 +1,696 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.navbar {
+    height: 70px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+
+.hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(
+        135deg,
+        #e0f2fe,
+        #eef2ff
+    );
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    color: #1d4ed8;
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #4b5563;
+    margin-bottom: 35px;
+}
+
+.button {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: #1d4ed8;
+}
+
+.modules {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.module-card {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.module-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.module-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.module-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.module-card a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.coming {
+    color: #9ca3af;
+    font-weight: bold;
+}
+
+.disclaimer {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.analysis-container,
+.result-container {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.analysis-card,
+.result-card {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.analysis-card h1,
+.result-card h1 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed #93c5fd;
+    border-radius: 15px;
+    padding: 45px 20px;
+    margin: 30px 0;
+    background: #f8fbff;
+}
+
+.upload-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.upload-area h3 {
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.upload-area input {
+    max-width: 100%;
+}
+
+.analyze-button {
+    margin-bottom: 30px;
+}
+
+.info-box {
+    text-align: left;
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.info-box h3 {
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.error {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 14px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.image-container {
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+.image-container img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.result-box {
+    padding: 25px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin: 25px 0;
+}
+
+.result-label {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.result-box h2 {
+    font-size: 36px;
+}
+
+.pneumonia {
+    color: #dc2626;
+}
+
+.normal {
+    color: #16a34a;
+}
+
+.confidence {
+    margin-top: 15px;
+    color: #4b5563;
+}
+
+.interpretation {
+    text-align: left;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.interpretation h3 {
+    margin-bottom: 10px;
+}
+
+.interpretation p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    padding: 18px;
+    border-radius: 10px;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.warning p {
+    margin-top: 8px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+
+    .modules {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .analysis-card,
+    .result-card {
+        padding: 25px;
+    }
+}
+/* ============================================================
+   DEEPMED AI MAIN DASHBOARD
+   ============================================================ */
+
+.main-header {
+    padding: 20px 40px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    font-size: 42px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.logo p {
+    margin: 3px 0 0;
+    opacity: 0.75;
+}
+
+
+.hero {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 850px;
+    margin: auto;
+}
+
+.hero h2 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
+.dashboard {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin: 45px 0 30px;
+    font-size: 28px;
+}
+
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+
+.module-card {
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    transition: transform 0.25s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-6px);
+}
+
+
+.module-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+
+.module-card h3 {
+    font-size: 26px;
+    margin: 5px 0;
+}
+
+
+.module-card h4 {
+    font-size: 18px;
+    margin: 8px 0 15px;
+}
+
+
+.module-card p {
+    line-height: 1.6;
+    min-height: 105px;
+}
+
+
+.module-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.architecture {
+    margin-top: 60px;
+}
+
+
+.architecture-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 25px auto;
+    flex-wrap: wrap;
+}
+
+
+.architecture-item,
+.architecture-model,
+.architecture-result {
+    min-width: 180px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+
+.architecture-item span {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+
+.architecture-item strong,
+.architecture-model strong,
+.architecture-result strong {
+    display: block;
+}
+
+
+.architecture-item small,
+.architecture-model small {
+    display: block;
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+
+.flow-arrow {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.disclaimer {
+    margin: 60px auto 30px;
+    max-width: 900px;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+
+.disclaimer p {
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+
+footer p {
+    margin: 5px;
+    opacity: 0.7;
+}
+
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .module-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+    }
+
+    .architecture-flow {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+
+}
+/* ============================================================
+   ANOMALY DETECTION PAGE
+   ============================================================ */
+
+.anomaly-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.anomaly-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.anomaly-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.anomaly-header h1 {
+    margin: 0;
+    font-size: 38px;
+}
+
+.anomaly-header p {
+    margin-top: 10px;
+    font-size: 17px;
+    opacity: 0.75;
+}
+
+.anomaly-card {
+    max-width: 850px;
+    margin: auto;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.anomaly-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.anomaly-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.anomaly-form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.anomaly-form-group input {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.anomaly-form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.anomaly-submit {
+    grid-column: 1 / -1;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.anomaly-result {
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.anomaly-result h2 {
+    margin-top: 0;
+}
+
+.anomaly-status {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.anomaly-details {
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+.anomaly-warning {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.anomaly-normal {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.anomaly-disclaimer {
+    max-width: 850px;
+    margin: 25px auto 0;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+@media (max-width: 700px) {
+
+    .anomaly-form {
+        grid-template-columns: 1fr;
+    }
+
+    .anomaly-submit {
+        grid-column: auto;
+    }
+
+    .anomaly-header h1 {
+        font-size: 30px;
+    }
+
+}

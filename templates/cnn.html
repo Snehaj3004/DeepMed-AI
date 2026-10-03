@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CNN X-Ray Analysis - DeepMed AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            DeepMed AI
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/cnn">
+                CNN Analysis
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="analysis-container">
+
+        <div class="analysis-card">
+
+            <h1>
+                Chest X-Ray Analysis
+            </h1>
+
+            <p class="subtitle">
+                CNN-based image classification
+            </p>
+
+
+            {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+            {% endif %}
+
+
+            <form action="/cnn/predict"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <div class="upload-area">
+
+                    <div class="upload-icon">
+                        🩻
+                    </div>
+
+                    <h3>
+                        Upload Chest X-Ray
+                    </h3>
+
+                    <p>
+                        Supported formats: JPG, JPEG, PNG
+                    </p>
+
+                    <input
+                        type="file"
+                        name="xray"
+                        accept=".jpg,.jpeg,.png"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit"
+                        class="button analyze-button">
+
+                    Analyze X-Ray
+
+                </button>
+
+            </form>
+
+
+            <div class="info-box">
+
+                <h3>
+                    CNN Model
+                </h3>
+
+                <p>
+                    The trained CNN analyzes the uploaded chest
+                    X-ray and classifies it into the available
+                    model classes.
+                </p>
+
+                <p>
+                    <strong>Classes:</strong>
+                    NORMAL and PNEUMONIA
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="disclaimer">
+
+        <strong>Important:</strong>
+
+        <p>
+            This system is intended for educational and research
+            purposes only and should not be used as a substitute
+            for professional medical diagnosis.
+        </p>
+
+    </div>
+
+</body>
+
+</html>

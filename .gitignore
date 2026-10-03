@@ -1,0 +1,44 @@
+# Python virtual environments
+venv/
+.env/
+.venv/
+ENV/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Jupyter / IDE files
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and test artifacts
+*.log
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Flask uploads (keep local only)
+static/uploads/
+
+# Temporary files
+*.tmp
+*.bak
+
+datasets/

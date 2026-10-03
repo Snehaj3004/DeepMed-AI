@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DeepMed AI - Medical AI System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="main-header">
+
+        <div class="header-content">
+
+            <div class="logo">
+
+                <span class="logo-icon">⚕</span>
+
+                <div>
+                    <h1>DeepMed AI</h1>
+
+                    <p>
+                        Multimodal Deep Learning System
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO SECTION
+         ===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h2>
+                Intelligent Medical Analysis
+            </h2>
+
+            <p>
+                An integrated deep learning platform combining
+                medical image analysis, patient vital monitoring,
+                and anomaly detection.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODULES
+         ===================================================== -->
+
+    <main class="dashboard">
+
+        <h2 class="section-title">
+            AI Analysis Modules
+        </h2>
+
+
+        <div class="module-grid">
+
+
+            <!-- =================================================
+                 CNN CARD
+                 ================================================= -->
+
+            <div class="module-card">
+
+                <div class="module-icon">
+                    🩻
+                </div>
+
+                <h3>
+                    CNN
+                </h3>
+
+                <h4>
+                    Chest X-Ray Analysis
+                </h4>
+
+                <p>
+                    Analyze chest X-ray images using a
+                    convolutional neural network to identify
+                    patterns associated with Normal and
+                    Pneumonia classes.
+                </p>
+
+                <a href="{{ url_for('cnn') }}"
+                   class="module-button">
+
+                    Analyze X-Ray
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 LSTM CARD
+                 ================================================= -->
+
+            <div class="module-card">
+
+                <div class="module-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    LSTM
+                </h3>
+
+                <h4>
+                    Patient Vital Monitoring
+                </h4>
+
+                <p>
+                    Analyze sequential patient vital signs
+                    using an LSTM neural network to identify
+                    normal and abnormal temporal patterns.
+                </p>
+
+                <a href="{{ url_for('lstm') }}"
+                   class="module-button">
+
+                    Analyze Vitals
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 AUTOENCODER CARD
+                 ================================================= -->
+
+            <div class="module-card">
+
+                <div class="module-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Autoencoder
+                </h3>
+
+                <h4>
+                    Anomaly Detection
+                </h4>
+
+                <p>
+                    Detect unusual combinations of patient
+                    measurements using reconstruction-error
+                    based anomaly detection.
+                </p>
+
+                <a href="{{ url_for('anomaly') }}"
+                   class="module-button">
+
+                    Detect Anomaly
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             SYSTEM ARCHITECTURE
+             ===================================================== -->
+
+        <section class="architecture">
+
+            <h2 class="section-title">
+                DeepMed AI Architecture
+            </h2>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>🩻</span>
+
+                    <strong>
+                        Medical Image
+                    </strong>
+
+                    <small>
+                        Chest X-Ray
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        CNN
+                    </strong>
+
+                    <small>
+                        Image Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Image Result
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>❤️</span>
+
+                    <strong>
+                        Patient Vitals
+                    </strong>
+
+                    <small>
+                        Time-Series Data
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        LSTM
+                    </strong>
+
+                    <small>
+                        Sequence Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Vital Status
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-flow">
+
+
+                <div class="architecture-item">
+
+                    <span>📊</span>
+
+                    <strong>
+                        Health Measurements
+                    </strong>
+
+                    <small>
+                        Patient Data
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-model">
+
+                    <strong>
+                        Autoencoder
+                    </strong>
+
+                    <small>
+                        Reconstruction Analysis
+                    </small>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-result">
+
+                    <strong>
+                        Anomaly Status
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DISCLAIMER
+             ===================================================== -->
+
+        <section class="disclaimer">
+
+            <strong>
+                Research & Decision-Support System
+            </strong>
+
+            <p>
+                DeepMed AI is an academic and research project
+                designed to demonstrate multimodal deep learning
+                techniques. Its outputs are intended for
+                educational and decision-support purposes and
+                are not a substitute for professional medical
+                diagnosis or clinical judgment.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <p>
+            © 2026 DeepMed AI
+        </p>
+
+        <p>
+            CNN • LSTM • Autoencoder
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DeepMed AI - Anomaly Detection</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="anomaly-page">
+
+    <div class="anomaly-container">
+
+        <div class="anomaly-header">
+
+            <h1>
+                ⚠ Autoencoder Anomaly Detection
+            </h1>
+
+            <p>
+                Analyze patient vital measurements using
+                reconstruction-error based anomaly detection.
+            </p>
+
+        </div>
+
+
+        <div class="anomaly-card">
+
+            <form
+                class="anomaly-form"
+                action="{{ url_for('anomaly_predict') }}"
+                method="POST"
+            >
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        Heart Rate (bpm)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="heart_rate"
+                        step="0.1"
+                        placeholder="e.g. 72"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        BP Systolic (mmHg)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="bp_systolic"
+                        step="0.1"
+                        placeholder="e.g. 120"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        BP Diastolic (mmHg)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="bp_diastolic"
+                        step="0.1"
+                        placeholder="e.g. 80"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        SpO2 (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="spo2"
+                        step="0.1"
+                        placeholder="e.g. 98"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        Respiration Rate (breaths/min)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="respiration_rate"
+                        step="0.1"
+                        placeholder="e.g. 16"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        Body Temperature (°F)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="body_temperature"
+                        step="0.1"
+                        placeholder="e.g. 98.6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="anomaly-form-group">
+
+                    <label>
+                        Blood Glucose
+                    </label>
+
+                    <input
+                        type="number"
+                        name="blood_glucose"
+                        step="0.1"
+                        placeholder="e.g. 95"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="anomaly-submit"
+                >
+                    Analyze Patient Vitals
+                </button>
+
+            </form>
+
+
+            {% if result %}
+
+            <div class="anomaly-result">
+
+                <h2>
+                    Analysis Result
+                </h2>
+
+                <div class="anomaly-status">
+
+                    {{ result.status }}
+
+                </div>
+
+
+                <div class="anomaly-details">
+
+                    <p>
+                        <strong>
+                            Reconstruction Error:
+                        </strong>
+
+                        {{ "%.6f"|format(
+                            result.reconstruction_error
+                        ) }}
+
+                    </p>
+
+
+                    <p>
+                        <strong>
+                            Anomaly Threshold:
+                        </strong>
+
+                        {{ "%.6f"|format(
+                            result.threshold
+                        ) }}
+
+                    </p>
+
+                </div>
+
+
+                {% if result.status == "ANOMALY" %}
+
+                <div class="anomaly-warning">
+
+                    ⚠ Anomalous pattern detected in
+                    the provided measurements.
+
+                </div>
+
+                {% else %}
+
+                <div class="anomaly-normal">
+
+                    ✓ The provided measurements appear
+                    normal according to the trained
+                    anomaly detection model.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="anomaly-disclaimer">
+
+            DeepMed AI is an academic research and
+            decision-support system. Results are not
+            intended to replace professional medical
+            diagnosis or clinical judgment.
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

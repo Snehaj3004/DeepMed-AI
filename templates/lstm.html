@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DeepMed AI - Patient Monitoring</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .lstm-container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .lstm-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .lstm-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .lstm-header p {
+            opacity: 0.75;
+        }
+
+        .vitals-card {
+            padding: 30px;
+            border-radius: 16px;
+            background: rgba(128, 128, 128, 0.10);
+        }
+
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .pattern-section {
+            margin-top: 25px;
+        }
+
+        .pattern-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .pattern-section select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .analyze-button {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            background: rgba(128, 128, 128, 0.08);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .error-message {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #ffe5e5;
+            color: #b00020;
+            text-align: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+        }
+
+        @media (max-width: 650px) {
+
+            .vitals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lstm-container {
+                margin: 20px auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="lstm-container">
+
+    <a href="/" class="back-link">
+        ← Back to Dashboard
+    </a>
+
+
+    <div class="lstm-header">
+
+        <h1>❤️ Patient Vital Monitoring</h1>
+
+        <p>
+            Enter the patient's current vital signs
+            for sequential LSTM analysis.
+        </p>
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="error-message">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form action="/lstm/predict"
+          method="POST">
+
+
+        <div class="vitals-card">
+
+            <h2>Current Vital Signs</h2>
+
+            <p>
+                Enter one set of patient measurements.
+            </p>
+
+
+            <div class="vitals-grid">
+
+
+                <div class="input-group">
+
+                    <label>
+                        Heart Rate (BPM)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="heart_rate"
+                        value="78"
+                        step="0.1"
+                        min="30"
+                        max="180"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        SpO₂ (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="spo2"
+                        value="98"
+                        step="0.1"
+                        min="70"
+                        max="100"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Temperature (°C)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="temperature"
+                        value="36.8"
+                        step="0.1"
+                        min="30"
+                        max="45"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Respiratory Rate
+                        (Breaths/min)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="respiratory_rate"
+                        value="16"
+                        step="0.1"
+                        min="5"
+                        max="60"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="pattern-section">
+
+                <label>
+                    Analysis Pattern
+                </label>
+
+                <select name="pattern">
+
+                    <option value="normal">
+                        Normal Pattern
+                    </option>
+
+                    <option value="abnormal">
+                        Abnormal Pattern (Demo)
+                    </option>
+
+                    <option value="custom">
+                        Natural Variation
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="analyze-button">
+
+                Analyze Patient Vitals
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+    <div class="info-box">
+
+        <strong>How it works</strong>
+
+        <br><br>
+
+        You enter one set of vital signs. DeepMed AI
+        generates a 24-step synthetic temporal sequence
+        around those values and sends the sequence to the
+        trained LSTM model.
+
+        <br><br>
+
+        <strong>Pattern options:</strong>
+
+        <br>
+
+        <b>Normal Pattern</b> — small natural variations.
+
+        <br>
+
+        <b>Abnormal Pattern (Demo)</b> — gradually changing
+        vital-sign pattern used to demonstrate the model.
+
+        <br>
+
+        <b>Natural Variation</b> — random variations around
+        the supplied values.
+
+        <br><br>
+
+        This functionality is intended for academic
+        research and decision-support demonstration.
+        It is not a medical diagnosis.
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
