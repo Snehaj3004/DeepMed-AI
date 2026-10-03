@@ -108,7 +108,68 @@ The app loads pre-trained models from the following locations:
 
 ## Data and training
 
-Training scripts are located in the `training/` folder. If you want to retrain or recalibrate the models, use those scripts as the starting point.
+The datasets used for training and testing are required for model training and experimentation.
+
+### Chest X-Ray Dataset
+
+The CNN model uses the **Chest X-Ray Images (Pneumonia)** dataset available on Kaggle.
+
+**Dataset:** [Chest X-Ray Images (Pneumonia) – Kaggle](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
+
+Download the dataset from Kaggle and extract it into the following location:
+
+```text
+datasets/
+└── xray/
+    └── chest_xray/
+        ├── train/
+        │   ├── NORMAL/
+        │   └── PNEUMONIA/
+        ├── test/
+        │   ├── NORMAL/
+        │   └── PNEUMONIA/
+        └── val/
+            ├── NORMAL/
+            └── PNEUMONIA/
+```
+
+The dataset contains `NORMAL` and `PNEUMONIA` chest X-ray images organized into training, testing, and validation sets.
+
+### Patient Vitals Dataset
+
+Place the patient vitals dataset at:
+
+```text
+datasets/
+└── patient_vitals/
+    └── patient_vitals.csv
+```
+
+The dataset is used by the LSTM model for patient vital-sign sequence analysis.
+
+### Anomaly Detection Dataset
+
+Place the synthetic health dataset at:
+
+```text
+datasets/
+└── anomaly/
+    └── synthetic_health_dataset_stratified_20_patients.csv
+```
+
+The dataset is used by the Autoencoder model for anomaly detection.
+
+### Dataset Setup
+
+1. Download the Chest X-Ray dataset from the Kaggle link above.
+2. Extract the downloaded dataset.
+3. Create the required `datasets/` folders in the project root.
+4. Place each dataset in its corresponding folder.
+5. Make sure the folder and file names match the structure shown above.
+6. The training scripts in the `training/` folder can then be used to train or retrain the models.
+
+The `datasets/` directory is excluded from Git tracking because of its size and is not included in this repository.
+
 
 ## Notes
 
