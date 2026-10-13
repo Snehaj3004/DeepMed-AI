@@ -211,10 +211,15 @@ normal_patients = normal_df[
     "Patient_ID"
 ].unique()
 
-
-train_patients, validation_patients = train_test_split(
+train_validation_patients, test_patients = train_test_split(
     normal_patients,
     test_size=0.20,
+    random_state=42
+)
+
+train_patients, validation_patients = train_test_split(
+    train_validation_patients,
+    test_size=0.25,
     random_state=42
 )
 
@@ -232,6 +237,29 @@ validation_normal = normal_df[
     )
 ].copy()
 
+test_normal = normal_df[
+    normal_df["Patient_ID"].isin(
+        test_patients
+    )
+].copy()
+
+test_anomaly = anomaly_df[
+    anomaly_df["Patient_ID"].isin(
+        test_patients
+    )
+].copy()
+
+if (
+    train_normal.empty
+    or validation_normal.empty
+    or test_normal.empty
+    or test_anomaly.empty
+):
+    raise ValueError(
+        "Patient-level train, validation, and test splits must each contain "
+        "normal records, and the test split must also contain anomaly records."
+    )
+
 
 print(
     "\nPatient-level split:"
@@ -248,13 +276,28 @@ print(
 )
 
 print(
+    f"Test patients              : "
+    f"{len(test_patients)}"
+)
+
+print(
     f"Training normal records    : "
     f"{len(train_normal)}"
 )
 
 print(
-    f"Validation normal records  : "
+    f"Validation normal records : "
     f"{len(validation_normal)}"
+)
+
+print(
+    f"Test normal records        : "
+    f"{len(test_normal)}"
+)
+
+print(
+    f"Test anomaly records       : "
+    f"{len(test_anomaly)}"
 )
 
 
@@ -274,8 +317,12 @@ X_validation = scaler.transform(
     validation_normal[FEATURES]
 )
 
-X_anomaly = scaler.transform(
-    anomaly_df[FEATURES]
+X_test_normal = scaler.transform(
+    test_normal[FEATURES]
+)
+
+X_test_anomaly = scaler.transform(
+    test_anomaly[FEATURES]
 )
 
 
@@ -440,22 +487,35 @@ print(
 )
 
 
-normal_reconstructed = autoencoder.predict(
+validation_reconstructed = autoencoder.predict(
     X_validation,
     verbose=0
 )
 
-
-anomaly_reconstructed = autoencoder.predict(
-    X_anomaly,
+test_normal_reconstructed = autoencoder.predict(
+    X_test_normal,
     verbose=0
+)
+
+test_anomaly_reconstructed = autoencoder.predict(
+    X_test_anomaly,
+    verbose=0
+)
+
+
+validation_errors = np.mean(
+    np.square(
+        X_validation -
+        validation_reconstructed
+    ),
+    axis=1
 )
 
 
 normal_errors = np.mean(
     np.square(
-        X_validation -
-        normal_reconstructed
+        X_test_normal -
+        test_normal_reconstructed
     ),
     axis=1
 )
@@ -463,8 +523,8 @@ normal_errors = np.mean(
 
 anomaly_errors = np.mean(
     np.square(
-        X_anomaly -
-        anomaly_reconstructed
+        X_test_anomaly -
+        test_anomaly_reconstructed
     ),
     axis=1
 )
@@ -475,7 +535,7 @@ anomaly_errors = np.mean(
 # ============================================================
 
 threshold = np.percentile(
-    normal_errors,
+    validation_errors,
     95
 )
 
@@ -585,7 +645,7 @@ specificity = (
 print("\n" + "=" * 60)
 
 print(
-    "DEEPmed AI AUTOENCODER RESULTS"
+    "DEEPmed AI AUTOENCODER HELD-OUT TEST RESULTS"
 )
 
 print("=" * 60)

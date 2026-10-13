@@ -46,15 +46,28 @@ def predict_anomaly(
     blood_glucose
 ):
 
-    values = pd.DataFrame([[
-    heart_rate,
-    bp_systolic,
-    bp_diastolic,
-    spo2,
-    respiration_rate,
-    body_temperature,
-    blood_glucose
-    ]], columns=FEATURES)
+    measurements = np.asarray(
+        [
+            heart_rate,
+            bp_systolic,
+            bp_diastolic,
+            spo2,
+            respiration_rate,
+            body_temperature,
+            blood_glucose
+        ],
+        dtype=np.float64
+    )
+
+    if not np.isfinite(measurements).all():
+        raise ValueError(
+            "All patient measurements must be finite numeric values."
+        )
+
+    values = pd.DataFrame(
+        [measurements],
+        columns=FEATURES
+    )
 
     scaled_values = scaler.transform(values)
 

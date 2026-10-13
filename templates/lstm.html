@@ -2,336 +2,71 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>DeepMed AI - Patient Monitoring</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <style>
-
-        .lstm-container {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        .lstm-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .lstm-header h1 {
-            margin-bottom: 10px;
-        }
-
-        .lstm-header p {
-            opacity: 0.75;
-        }
-
-        .vitals-card {
-            padding: 30px;
-            border-radius: 16px;
-            background: rgba(128, 128, 128, 0.10);
-        }
-
-        .vitals-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .input-group input,
-        .input-group select {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-
-        .pattern-section {
-            margin-top: 25px;
-        }
-
-        .pattern-section label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .pattern-section select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-
-        .analyze-button {
-            display: block;
-            width: 100%;
-            margin-top: 30px;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .info-box {
-            margin-top: 25px;
-            padding: 18px;
-            border-radius: 10px;
-            background: rgba(128, 128, 128, 0.08);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .error-message {
-            margin-bottom: 20px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #ffe5e5;
-            color: #b00020;
-            text-align: center;
-        }
-
-        .back-link {
-            text-decoration: none;
-        }
-
-        @media (max-width: 650px) {
-
-            .vitals-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .lstm-container {
-                margin: 20px auto;
-            }
-
-        }
-
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vital Sequence Analysis | DeepMed AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-
 <body>
+    {% set active_nav = "lstm" %}
+    {% set page_title = "Vital Sequences" %}
+    {% include "partials/app_shell_start.html" %}
 
-<div class="lstm-container">
+    <main class="lstm-container">
+        <a href="{{ url_for('home') }}" class="breadcrumb">← Back to overview</a>
 
-    <a href="/" class="back-link">
-        ← Back to Dashboard
-    </a>
-
-
-    <div class="lstm-header">
-
-        <h1>❤️ Patient Vital Monitoring</h1>
-
-        <p>
-            Enter the patient's current vital signs
-            for sequential LSTM analysis.
-        </p>
-
-    </div>
-
-
-    {% if error %}
-
-    <div class="error-message">
-        {{ error }}
-    </div>
-
-    {% endif %}
-
-
-    <form action="/lstm/predict"
-          method="POST">
-
-
-        <div class="vitals-card">
-
-            <h2>Current Vital Signs</h2>
-
-            <p>
-                Enter one set of patient measurements.
-            </p>
-
-
-            <div class="vitals-grid">
-
-
-                <div class="input-group">
-
-                    <label>
-                        Heart Rate (BPM)
-                    </label>
-
-                    <input
-                        type="number"
-                        name="heart_rate"
-                        value="78"
-                        step="0.1"
-                        min="30"
-                        max="180"
-                        required>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        SpO₂ (%)
-                    </label>
-
-                    <input
-                        type="number"
-                        name="spo2"
-                        value="98"
-                        step="0.1"
-                        min="70"
-                        max="100"
-                        required>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Temperature (°C)
-                    </label>
-
-                    <input
-                        type="number"
-                        name="temperature"
-                        value="36.8"
-                        step="0.1"
-                        min="30"
-                        max="45"
-                        required>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Respiratory Rate
-                        (Breaths/min)
-                    </label>
-
-                    <input
-                        type="number"
-                        name="respiratory_rate"
-                        value="16"
-                        step="0.1"
-                        min="5"
-                        max="60"
-                        required>
-
-                </div>
-
-            </div>
-
-
-            <div class="pattern-section">
-
-                <label>
-                    Analysis Pattern
-                </label>
-
-                <select name="pattern">
-
-                    <option value="normal">
-                        Normal Pattern
-                    </option>
-
-                    <option value="abnormal">
-                        Abnormal Pattern (Demo)
-                    </option>
-
-                    <option value="custom">
-                        Natural Variation
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="analyze-button">
-
-                Analyze Patient Vitals
-
-            </button>
-
+        <div class="lstm-header">
+            <span class="eyebrow">LSTM · Sequence analysis</span>
+            <h1>Patient vital history</h1>
+            <p>Upload 24 chronological readings for one patient. The model analyzes the measurements you provide.</p>
         </div>
 
+        {% if error %}
+        <div class="error-message" role="alert">{{ error }}</div>
+        {% endif %}
 
-    </form>
+        <form action="{{ url_for('lstm_predict') }}" method="POST" enctype="multipart/form-data">
+            <section class="vitals-card">
+                <h2>Upload readings</h2>
+                <p>Choose one CSV file containing exactly 24 readings.</p>
 
+                <label class="upload-area" for="vitals_csv">
+                    <span class="upload-icon" aria-hidden="true">↥</span>
+                    <strong>Select a patient vitals CSV</strong>
+                    <p id="selected-file-name" data-file-name aria-live="polite">CSV file · 24 rows required</p>
+                    <input
+                        id="vitals_csv"
+                        type="file"
+                        name="vitals_csv"
+                        accept=".csv,text/csv"
+                        required>
+                </label>
 
-    <div class="info-box">
+                <div class="info-box">
+                    <h3>Required columns and units</h3>
+                    <p><code>heart_rate</code> (bpm), <code>spo2</code> (%), <code>temperature</code> (°C), and <code>respiratory_rate</code> (breaths/min).</p>
+                    <p class="file-hint">Optional: <code>time_step</code> sorts readings and must have even spacing; <code>patient_id</code> must identify a single patient. Other columns, including <code>status</code>, are ignored.</p>
+                </div>
 
-        <strong>How it works</strong>
+                <button type="submit" class="analyze-button">
+                    Analyze 24 readings <span aria-hidden="true">→</span>
+                </button>
+            </section>
+        </form>
 
-        <br><br>
+        <aside class="info-box">
+            <h3>About this result</h3>
+            <ol>
+                <li>The app orders rows by <code>time_step</code> when that column is present.</li>
+                <li>The model returns NORMAL or ABNORMAL and a raw score, not a calibrated probability.</li>
+                <li>The bundled training data is synthetic. This research demo is not clinically validated.</li>
+            </ol>
+        </aside>
+    </main>
 
-        You enter one set of vital signs. DeepMed AI
-        generates a 24-step synthetic temporal sequence
-        around those values and sends the sequence to the
-        trained LSTM model.
-
-        <br><br>
-
-        <strong>Pattern options:</strong>
-
-        <br>
-
-        <b>Normal Pattern</b> — small natural variations.
-
-        <br>
-
-        <b>Abnormal Pattern (Demo)</b> — gradually changing
-        vital-sign pattern used to demonstrate the model.
-
-        <br>
-
-        <b>Natural Variation</b> — random variations around
-        the supplied values.
-
-        <br><br>
-
-        This functionality is intended for academic
-        research and decision-support demonstration.
-        It is not a medical diagnosis.
-
-    </div>
-
-</div>
-
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    {% include "partials/app_shell_end.html" %}
 </body>
 
 </html>

@@ -17,32 +17,9 @@
 
 
 <body>
-
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
-    <header class="main-header">
-
-        <div class="header-content">
-
-            <div class="logo">
-
-                <span class="logo-icon">⚕</span>
-
-                <div>
-                    <h1>DeepMed AI</h1>
-
-                    <p>
-                        Multimodal Deep Learning System
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </header>
+    {% set active_nav = "overview" %}
+    {% set page_title = "Overview" %}
+    {% include "partials/app_shell_start.html" %}
 
 
     <!-- =====================================================
@@ -53,14 +30,16 @@
 
         <div class="hero-content">
 
+            <span class="eyebrow">Multimodal AI · Research prototype</span>
+
             <h2>
-                Intelligent Medical Analysis
+                A clearer view of patient data
             </h2>
 
             <p>
-                An integrated deep learning platform combining
-                medical image analysis, patient vital monitoring,
-                and anomaly detection.
+                Explore chest X-ray classification, 24-step vital
+                sequence analysis, and patient measurement
+                anomaly detection in one research workspace.
             </p>
 
         </div>
@@ -74,9 +53,12 @@
 
     <main class="dashboard">
 
-        <h2 class="section-title">
-            AI Analysis Modules
-        </h2>
+        <div class="section-heading">
+            <div>
+                <h2>Analysis modules</h2>
+                <p>Choose a workflow to get started.</p>
+            </div>
+        </div>
 
 
         <div class="module-grid">
@@ -86,25 +68,20 @@
                  CNN CARD
                  ================================================= -->
 
-            <div class="module-card">
+            <article class="module-card">
 
                 <div class="module-icon">
                     🩻
                 </div>
 
-                <h3>
-                    CNN
-                </h3>
+                <span class="module-kicker">CNN · Image classification</span>
 
-                <h4>
-                    Chest X-Ray Analysis
-                </h4>
+                <h3>Chest X-Ray Analysis</h3>
+                <h4>NORMAL or PNEUMONIA</h4>
 
                 <p>
-                    Analyze chest X-ray images using a
-                    convolutional neural network to identify
-                    patterns associated with Normal and
-                    Pneumonia classes.
+                    Submit a chest X-ray and view the model’s
+                    NORMAL or PNEUMONIA classification.
                 </p>
 
                 <a href="{{ url_for('cnn') }}"
@@ -112,33 +89,30 @@
 
                     Analyze X-Ray
 
+                    <span aria-hidden="true">→</span>
                 </a>
 
-            </div>
+            </article>
 
 
             <!-- =================================================
                  LSTM CARD
                  ================================================= -->
 
-            <div class="module-card">
+            <article class="module-card">
 
                 <div class="module-icon">
                     ❤️
                 </div>
 
-                <h3>
-                    LSTM
-                </h3>
+                <span class="module-kicker">LSTM · Sequence analysis</span>
 
-                <h4>
-                    Patient Vital Monitoring
-                </h4>
+                <h3>Patient Vital Monitoring</h3>
+                <h4>24 chronological readings</h4>
 
                 <p>
-                    Analyze sequential patient vital signs
-                    using an LSTM neural network to identify
-                    normal and abnormal temporal patterns.
+                    Upload 24 chronological readings for one
+                    patient and inspect the model’s raw score.
                 </p>
 
                 <a href="{{ url_for('lstm') }}"
@@ -146,33 +120,30 @@
 
                     Analyze Vitals
 
+                    <span aria-hidden="true">→</span>
                 </a>
 
-            </div>
+            </article>
 
 
             <!-- =================================================
                  AUTOENCODER CARD
                  ================================================= -->
 
-            <div class="module-card">
+            <article class="module-card">
 
                 <div class="module-icon">
                     ⚠️
                 </div>
 
-                <h3>
-                    Autoencoder
-                </h3>
+                <span class="module-kicker">Autoencoder · Reconstruction</span>
 
-                <h4>
-                    Anomaly Detection
-                </h4>
+                <h3>Anomaly Detection</h3>
+                <h4>Patient measurement patterns</h4>
 
                 <p>
-                    Detect unusual combinations of patient
-                    measurements using reconstruction-error
-                    based anomaly detection.
+                    Check a set of patient measurements against
+                    the trained reconstruction-error threshold.
                 </p>
 
                 <a href="{{ url_for('anomaly') }}"
@@ -180,9 +151,10 @@
 
                     Detect Anomaly
 
+                    <span aria-hidden="true">→</span>
                 </a>
 
-            </div>
+            </article>
 
 
         </div>
@@ -194,9 +166,12 @@
 
         <section class="architecture">
 
-            <h2 class="section-title">
-                DeepMed AI Architecture
-            </h2>
+            <div class="section-heading">
+                <div>
+                    <h2>How the modules work</h2>
+                    <p>Each model handles a different type of input.</p>
+                </div>
+            </div>
 
 
             <div class="architecture-flow">
@@ -361,19 +336,17 @@
              DISCLAIMER
              ===================================================== -->
 
-        <section class="disclaimer">
+        <section class="disclaimer" aria-label="Research disclaimer">
 
             <strong>
                 Research & Decision-Support System
             </strong>
 
             <p>
-                DeepMed AI is an academic and research project
-                designed to demonstrate multimodal deep learning
-                techniques. Its outputs are intended for
-                educational and decision-support purposes and
-                are not a substitute for professional medical
-                diagnosis or clinical judgment.
+                The bundled vital-sign and anomaly datasets are synthetic.
+                These models are for research demonstration and are not
+                clinically validated or a substitute for professional
+                medical judgment.
             </p>
 
         </section>
@@ -386,19 +359,15 @@
          FOOTER
          ===================================================== -->
 
-    <footer>
-
+    <footer class="site-footer">
         <p>
             © 2026 DeepMed AI
         </p>
 
-        <p>
-            CNN • LSTM • Autoencoder
-        </p>
-
+        <p>Research prototype · CNN · LSTM · Autoencoder</p>
     </footer>
 
-
+    {% include "partials/app_shell_end.html" %}
 </body>
 
 </html>

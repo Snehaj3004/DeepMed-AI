@@ -36,11 +36,11 @@ MODEL_PATH = os.path.join(
 IMG_SIZE = (224, 224)
 BATCH_SIZE = 16
 
-THRESHOLD = 0.21
+THRESHOLD = 0.50
 
 
 print("=" * 50)
-print("CNN v2 TEST EVALUATION - THRESHOLD 0.21")
+print(f"CNN v2 TEST EVALUATION - THRESHOLD {THRESHOLD:.2f}")
 print("=" * 50)
 
 print("\nLoading test dataset...")

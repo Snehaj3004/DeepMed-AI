@@ -16,8 +16,7 @@ This project is designed as a practical demo and research prototype for AI-assis
 - Confidence score and raw prediction score are shown in the UI
 
 ### 2. LSTM vital-sign analysis
-- Input a patient’s heart rate, SpO2, temperature, and respiratory rate
-- The app generates a 24-step sequence pattern to simulate monitoring over time
+- Upload one patient's 24 chronological readings as a CSV containing heart rate, SpO2, temperature, and respiratory rate
 - LSTM model classifies the trend as `NORMAL` or `ABNORMAL`
 
 ### 3. Autoencoder anomaly detection
@@ -142,10 +141,15 @@ Place the patient vitals dataset at:
 ```text
 datasets/
 └── patient_vitals/
-    └── patient_vitals.csv
+    └── patient_vitals_v2.csv
 ```
 
-The dataset is used by the LSTM model for patient vital-sign sequence analysis.
+This is the dataset used by the current LSTM v2 model for patient vital-sign
+sequence analysis.
+The web form expects exactly 24 readings for one patient and uses the supplied
+rows directly instead of generating a simulated sequence. The bundled vitals
+data is synthetic research data. CSV feature units are heart rate (bpm), SpO2
+(%), temperature (°C), and respiratory rate (breaths/min).
 
 ### Anomaly Detection Dataset
 
@@ -158,6 +162,12 @@ datasets/
 ```
 
 The dataset is used by the Autoencoder model for anomaly detection.
+Autoencoder training separates patients into training, validation, and
+held-out test groups. Its threshold is calibrated on validation-normal records,
+and reported metrics use held-out patients. This dataset is synthetic research
+data, not clinical validation. Re-run
+`training/train_autoencoder.py` to regenerate the model, scaler, and threshold
+artifacts with this split.
 
 ### Dataset Setup
 
@@ -176,6 +186,8 @@ The `datasets/` directory is excluded from Git tracking because of its size and 
 - Uploaded images are stored in `static/uploads/`.
 - The app runs in debug mode by default for local development.
 - Model performance depends on the trained data and thresholds stored under `models/`.
+- The bundled vital-sign and anomaly datasets are synthetic; model outputs are
+  for research demonstration only and are not clinically validated.
 
 ## Disclaimer
 

@@ -1,0 +1,53 @@
+<div class="app-shell">
+    <aside class="app-sidebar">
+        <a class="sidebar-brand" href="{{ url_for('home') }}">
+            <span class="brand-mark" aria-hidden="true">+</span>
+            <span>
+                <strong>DeepMed AI</strong>
+                <small>Research workspace</small>
+            </span>
+        </a>
+
+        <div class="sidebar-section-label">WORKSPACE</div>
+        <nav class="sidebar-nav" aria-label="Workspace navigation">
+            <a href="{{ url_for('home') }}" class="{% if active_nav == 'overview' %}active{% endif %}" {% if active_nav == 'overview' %}aria-current="page"{% endif %}>
+                <span class="sidebar-icon" aria-hidden="true">⌂</span>
+                <span>Overview</span>
+            </a>
+            <a href="{{ url_for('cnn') }}" class="{% if active_nav == 'cnn' %}active{% endif %}" {% if active_nav == 'cnn' %}aria-current="page"{% endif %}>
+                <span class="sidebar-icon" aria-hidden="true">▧</span>
+                <span>Chest X-Ray</span>
+                <span class="nav-tag">CNN</span>
+            </a>
+            <a href="{{ url_for('lstm') }}" class="{% if active_nav == 'lstm' %}active{% endif %}" {% if active_nav == 'lstm' %}aria-current="page"{% endif %}>
+                <span class="sidebar-icon" aria-hidden="true">⌁</span>
+                <span>Vital Sequences</span>
+                <span class="nav-tag">LSTM</span>
+            </a>
+            <a href="{{ url_for('anomaly') }}" class="{% if active_nav == 'anomaly' %}active{% endif %}" {% if active_nav == 'anomaly' %}aria-current="page"{% endif %}>
+                <span class="sidebar-icon" aria-hidden="true">◈</span>
+                <span>Anomaly Detection</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span class="status-dot"></span>
+            <span>
+                <strong>Research demo</strong>
+                <small>Not clinically validated</small>
+            </span>
+        </div>
+    </aside>
+
+    <div class="workspace">
+        <header class="workspace-topbar">
+            <div class="topbar-title">
+                <span>DeepMed AI</span>
+                <span class="topbar-separator">/</span>
+                <strong>{{ page_title }}</strong>
+            </div>
+            <div class="topbar-status">
+                <span class="status-dot"></span>
+                Demo environment
+            </div>
+        </header>

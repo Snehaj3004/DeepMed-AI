@@ -41,6 +41,28 @@ def predict_vitals(vitals):
             "heart_rate, spo2, temperature, respiratory_rate"
         )
 
+    if not np.isfinite(vitals).all():
+        raise ValueError(
+            "Vital measurements must be finite numeric values."
+        )
+
+    minimums = np.array(
+        [45.0, 88.0, 35.5, 8.0],
+        dtype=np.float32
+    )
+
+    maximums = np.array(
+        [150.0, 100.0, 40.0, 40.0],
+        dtype=np.float32
+    )
+
+    if np.any(vitals < minimums) or np.any(vitals > maximums):
+        raise ValueError(
+            "Vital measurements must be within the training-data ranges: "
+            "heart_rate 45-150 bpm, spo2 88-100%, temperature 35.5-40 °C, "
+            "respiratory_rate 8-40 breaths/min."
+        )
+
     # Scale using the same scaler used during training
     vitals_scaled = scaler.transform(vitals)
 
@@ -59,14 +81,11 @@ def predict_vitals(vitals):
 
     if raw_score >= 0.50:
         prediction = "ABNORMAL"
-        confidence = raw_score
     else:
         prediction = "NORMAL"
-        confidence = 1 - raw_score
 
     return {
         "prediction": prediction,
-        "confidence": confidence,
         "raw_score": raw_score
     }
 
@@ -140,12 +159,7 @@ if __name__ == "__main__":
     )
 
     print(
-        f"Confidence : "
-        f"{result['confidence'] * 100:.2f}%"
-    )
-
-    print(
-        f"Raw Score  : "
+        f"Raw Model Score : "
         f"{result['raw_score']:.4f}"
     )
 
